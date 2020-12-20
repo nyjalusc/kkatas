@@ -1,6 +1,7 @@
 package arrays.basics
 
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Array<T> is a typed Array maps to T[] (boxed) on JVM (eg. Integer[], String[] etc)
@@ -63,4 +64,6 @@ fun main() {
 
     val multiIntArray = Array(5) { r -> IntArray(3) {i -> i * i} }
 
+    val list = ArrayList<IntArray>()
+    val foo = list.toTypedArray()
 }

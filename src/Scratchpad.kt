@@ -3,37 +3,20 @@ import java.util.*
 
 
 fun main() {
-    for (i in 0 until 5 step 2) println(i)
-    println("123".toInt())
+    val arr = arrayOf(2, 4, 6, 7, 8)
+    println(arr.binarySearch(3))
 
-    println(createZipArchiveFileName())
+    val sortMe = arrayOf(arrayOf(5, 10), arrayOf(0, 100), arrayOf(3, 7))
+    val sortedListByFirst = sortMe.sortedBy { it.first() }
+    sortedListByFirst.forEach { print(it.contentToString()) }
+    println("\n----------")
 
-    println("%s/%s".format("hello", "world"))
+    val sortedArrayByLast = sortMe.sortedArrayWith(compareBy { it.last() })
+    sortedArrayByLast.forEach { print(it.contentToString())}
+    println("\n----------")
 
-    val x = Int.MAX_VALUE/2
-    println(x)
-
-
-    val heap = PriorityQueue<Int>(3, naturalOrder())
-    val reverseHeap = PriorityQueue<Int>(3, reverseOrder())
-
-    (1..5).forEach {
-        heap.add(it)
-        if (heap.size > 3) {
-            println("Size limit exceeded, evicted smallest")
-        }
-        reverseHeap.add(it)
-    }
-
-    println("Heap Peek: ${heap.peek()}")
-    while (heap.isNotEmpty()) {
-        println("Heap Poll: ${heap.poll()}")
-    }
-
-    println("Reverse Peek: ${reverseHeap.peek()}")
-    while (reverseHeap.isNotEmpty()) {
-        println("ReverseHeap Poll: ${reverseHeap.poll()}")
-    }
+    sortMe.sortBy { it.average() }
+    sortMe.forEach { print(it.contentToString())}
 }
 
 fun createZipArchiveFileName(): String {

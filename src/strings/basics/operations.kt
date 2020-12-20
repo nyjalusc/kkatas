@@ -27,6 +27,17 @@ fun main() {
     // 5. windowed
     val nums = "1234567890"
     println(nums.windowed(3, 3, true))
+
+    // 6. Partition
+    val partitionMe = "hello"
+    val partitionPair = partitionMe.partition { it == 'e' }
+    println(partitionPair)
+
+    // 7.
+    val charA = 'a'
+    println("Last index of $charA in string: $str is: " + str.indexOfLast { it == charA })
+
+    val set = hashSetOf<Char>()
 }
 
 fun compressWord(word: String, k: Int): String {
