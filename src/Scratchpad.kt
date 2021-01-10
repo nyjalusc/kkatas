@@ -3,7 +3,7 @@ import java.util.*
 
 
 fun main() {
-    val arr = arrayOf(2, 4, 6, 7, 8)
+    var arr = arrayOf(2, 4, 6, 7, 8)
     println(arr.binarySearch(3))
 
     val sortMe = arrayOf(arrayOf(5, 10), arrayOf(0, 100), arrayOf(3, 7))
@@ -17,6 +17,14 @@ fun main() {
 
     sortMe.sortBy { it.average() }
     sortMe.forEach { print(it.contentToString())}
+
+    val pqSample = arrayOf(intArrayOf(3, 2, 7), intArrayOf(3, 7, 9), intArrayOf(8, 3, 9))
+    val pq = PriorityQueue<IntArray>(compareBy { it.last() })
+    pqSample.sortBy { it[1] }
+    pqSample.map { println("\nSorted: ${it.contentToString()}") }
+    pq.addAll(pqSample)
+    while (pq.isNotEmpty()) println("\nPQ: ${pq.poll().contentToString()}")
+
 }
 
 fun createZipArchiveFileName(): String {

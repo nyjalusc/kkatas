@@ -32,6 +32,8 @@ class FlattenMultiLevelDoublyLinkedList {
         var current = root
         var previous: Node? = root
 
+        stack.isEm
+
         // Got this condition wrong in first attempt
         while(current != null || !stack.isEmpty()) {
             if (current == null) {
