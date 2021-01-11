@@ -9,5 +9,4 @@ fun main() {
 
     val result = (first.keys + second.keys)
         .associateWith { (first.getOrDefault(it, mutableListOf()) + second.getOrDefault(it, mutableListOf())).sorted() }
-    println(result)
 }
