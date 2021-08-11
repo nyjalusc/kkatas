@@ -55,14 +55,14 @@ fun main() {
     // 10. sum(), average(), min(), max()
     println(arr.sum())
     println(arr.average())
-    println(arr.min())
-    println(arr.max())
+    println(arr.minOrNull())
+    println(arr.maxOrNull())
 
     // 11. minBy vs maxBy, takes in lambda that will be used to find min/max result
     // NOTE: maxBy and minBy can return null if the collection or array is null
     val names = arrayOf("John", "Jacob", "Sam", "Li")
-    println(names.minBy { it.length }) // Li
-    println(names.maxBy { it.length }) // Jacob
+    println(names.minByOrNull { it.length }) // Li
+    println(names.maxByOrNull { it.length }) // Jacob
 
     // 12. Filter
     val numsUnfiltered = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8)

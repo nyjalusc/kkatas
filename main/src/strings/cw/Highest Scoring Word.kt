@@ -16,7 +16,7 @@ import kotlin.test.assertEquals
 
  */
 fun high(str: String) : String {
-    return str.split(" ").maxBy { it -> it.sumBy { it - 'a' + 1 } }!!
+    return str.split(" ").maxByOrNull { it -> it.sumBy { it - 'a' + 1 } }!!
 }
 
 fun main() {

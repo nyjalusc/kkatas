@@ -15,7 +15,7 @@ class TaskScheduler {
         var start = 0
         val result = CharArray(tasks.size * (n + 1)) {'#'}
         while (map.isNotEmpty()) {
-            val longestTask = map.maxBy { it.value }!!
+            val longestTask = map.maxByOrNull { it.value }!!
             // Place at alternate positions
             for(i in start..result.lastIndex step (n + 1)) {
                 if (map[longestTask.key]!! > 0) {
