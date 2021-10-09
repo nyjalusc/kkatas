@@ -70,7 +70,7 @@ fun main() {
     println(cars.sortedWith(simpleComparatorReversed))
 
     // Handle nulls
-    // nullsFirst/nullsLast takes in a comparator and decortes it. Default impl also available
+    // nullsFirst/nullsLast takes in a comparator and decorates it. Default impl also available
     val pairList = listOf(Pair(1, null), Pair(2, "b"), Pair(3, null), Pair(4, "d"))
     val sortedPairs = pairList.sortedWith(nullsFirst(compareBy {it.second}))
     println("Sorted Pairs (Nulls First): $sortedPairs")

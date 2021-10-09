@@ -34,7 +34,7 @@ class FindAllAnagramsInAString {
         // Traverse from first char up to the end
         while (end < s.length) {
             // If s[end] is there in the map reduce its count, if it goes down to 0
-            // we have visited all the occurences of this char in the given string so decrement charCounter
+            // we have visited all the occurrences of this char in the given string so decrement charCounter
             if (map.contains(s[end])) {
                 map[s[end]] = map[s[end]]!! - 1
                 if(map[s[end]] == 0) charCounter--
@@ -46,7 +46,7 @@ class FindAllAnagramsInAString {
             // We got to move begin pointer and shrink the window, if we have encountered chars from p
             // we add it back to the map and adjust charCounter if required.
             while(charCounter == 0) {
-                // Success condition: if charCounter == 0 && end - begin - p.length
+                // Success condition: if charCounter == 0 && end - begin == p.length
                 if(end - begin == p.length) result.add(begin)
 
                 // Relevant chars that fall out of the window need to be added back to the map

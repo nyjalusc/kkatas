@@ -29,13 +29,13 @@ class MinimumWindowSubstring_76 {
 
             end++
             while(charCount == 0) {                  /////////////////// B I had charCount <= 0
-                var potentialResult = s.substring(begin, end)
+                val potentialResult = s.substring(begin, end)
                 if(result == null || potentialResult.length < result.length) {
                     result = potentialResult
                 }
                 if(map.containsKey(s[begin])) {
+                    if(map[s[begin]]!! == 0) charCount++
                     map[s[begin]] = map.getOrDefault(s[begin], 0) + 1
-                    if(map[s[begin]]!! > 0) charCount++ ////////////////// C incremented charCount for every map addition
                 }
                 begin++
             }
