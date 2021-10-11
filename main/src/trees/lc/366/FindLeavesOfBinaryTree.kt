@@ -15,10 +15,6 @@ class FindLeavesOfBinaryTree {
         val map = mutableMapOf<Int, MutableList<Int>>()
         getHeight(root, map)
 
-//        map.entries.sortedBy { it.key }.map {
-//            result.add(it.value)
-//        }
-
         // We can get away without sorting because the levels of the tree can be accessed in natural order
         for (i in 0 until map.size) {
             result.add(map[i]!!)
@@ -26,6 +22,9 @@ class FindLeavesOfBinaryTree {
         return result
     }
 
+    /**
+     * Populates the map <Height, List<Node-Values>> and returns height after deleting leaf nodes
+     */
     private fun getHeight(root: TreeNode?, map: MutableMap<Int, MutableList<Int>>): Int {
         if(root == null) return -1
 
@@ -36,9 +35,8 @@ class FindLeavesOfBinaryTree {
         root.right = null
 
         // Add current node val to the map based on currentHeight key
-        val list = map.getOrDefault(currentHeight, mutableListOf())
+        val list = map.getOrPut(currentHeight) { mutableListOf() }
         list.add(root.`val`)
-        map[currentHeight] = list
 
         return currentHeight
     }

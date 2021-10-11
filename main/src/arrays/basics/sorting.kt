@@ -25,6 +25,8 @@ fun main() {
 
     val cars = arrayOf("Ford", "Chevrolet", "Jaguar", "Audi", "BMW")
 
+    cars.rever
+
     println(nums.sortBy { it })
 
     val sortedCarList = cars.sortedWith(object : Comparator<String> {

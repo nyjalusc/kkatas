@@ -22,32 +22,24 @@ class LongestIncreasingSubsequence {
      */
     fun lengthOfLISDPN2Solution(nums: IntArray?): Int {
         if (nums == null || nums.isEmpty()) return 0
-        val dp = IntArray(nums.size)
+        val dp = IntArray(nums.size) { 1 }
         dp[0] = 1
-        var result = 1
-        var i = 0
-        var j = i + 1
-        while (j < nums.size) {
-            while (i < j) {
+        for (j in 1 until nums.size) {
+            for (i in 0 until j) {
                 if (nums[i] < nums[j]) {
                     // Most important step
-                    dp[j] = max(dp[j], dp[i] + 1)
-                    result = max(result, dp[j])
+                    dp[j] = max(dp[j], dp[i]) + 1
                 }
-                ++i
             }
-            if (dp[j] == 0) dp[j] = 1
-            i = 0
-            j++
         }
-        return result
+        return dp.maxOf { it }
     }
 
     /**
      * Every iteration we try to add element in a sorted manner in the dp array.
      * The dp array may or may not contain the actual elements but the size of dp array is the result. It is a little
      * difficult to see because the elements can be overwritten in the dp array. But ideally we are trying to build
-     * the longest inceasing subsequence in the dp array.
+     * the longest increasing subsequence in the dp array.
      *
      * IMPORTANT: The way we build the dp array is quite unique. We perform a binary search over the dp array and try to
      * look for num[i], of course we wouldn't find it because it doesn't exist yet. But binary search result will tell us

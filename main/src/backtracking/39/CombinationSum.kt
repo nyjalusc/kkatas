@@ -3,7 +3,7 @@ package backtracking.`39`
 
 class CombinationSum {
     // https://leetcode.com/problems/combination-sum/discuss/16502/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partitioning)
-    fun combinationSum(candidates: IntArray, target: Int): List<List<Int>> {
+    fun combinationSum1(candidates: IntArray, target: Int): List<List<Int>> {
         val result = mutableListOf<List<Int>>()
         helper(candidates, target, result, mutableListOf<Int>(), 0)
         return result
@@ -26,7 +26,7 @@ class CombinationSum {
     }
 
 
-    fun combinationSum(candidates: IntArray, target: Int): List<List<Int>>? {
+    fun combinationSum2(candidates: IntArray, target: Int): List<List<Int>>? {
         val list: MutableList<Int> = ArrayList()
         val solution: MutableList<List<Int>> = ArrayList()
         solve(candidates, target, 0, list, solution)
