@@ -32,11 +32,16 @@ class ClosestBinarySearchTreeValueII_272 {
 
     /**
      * Using MAX-HEAP (Simple)
+     * Add and then remove
      * Time complexity: O(N Log K) to push N elements into the heap of the size K.
      * Space complexity: O(K + H) to keep the heap of K elements and the recursion stack of the tree height.
+     *
+     * Another approach will be to use a min-heap, ADD ALL elements and pop first k elements
+     * Time: O(N log N)
+     * Space: O(N)
      */
     fun closestKValues(root: TreeNode?, target: Double, k: Int): List<Int> {
-        val pq = PriorityQueue<Double>(compareBy{ abs(it.toDouble() - target) })
+        val pq = PriorityQueue<Double>(compareByDescending{ abs(it.toDouble() - target) })
         inorder(root, target, k, pq)
         return pq.map { it.toInt() }
     }
