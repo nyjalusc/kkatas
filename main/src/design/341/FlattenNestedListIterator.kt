@@ -87,7 +87,7 @@ class NestedIteratorUsingStack(nestedList: List<NestedInteger>) {
     /**
      * keep a stack for which element we need to print
      */
-    private val stack: Stack<NestedInteger>
+    private lateinit var stack: Stack<NestedInteger>
     fun next(): Int {
         return stack.pop().getInteger()!!
     }
@@ -106,7 +106,7 @@ class NestedIteratorUsingStack(nestedList: List<NestedInteger>) {
     }
 
     init {
-        if (nestedList.isEmpty()) return
+        if (nestedList.isEmpty())
         stack = Stack()
         /**
          * since we need to show from left to right direction, simply push all the elements in reverse order initially

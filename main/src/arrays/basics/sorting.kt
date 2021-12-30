@@ -24,9 +24,6 @@ fun main() {
     println("In place sort: ${nums.contentToString()}")
 
     val cars = arrayOf("Ford", "Chevrolet", "Jaguar", "Audi", "BMW")
-
-    cars.rever
-
     println(nums.sortBy { it })
 
     val sortedCarList = cars.sortedWith(object : Comparator<String> {

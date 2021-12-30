@@ -20,19 +20,21 @@ class LongestIncreasingSubsequence {
      * Time: O(N^2)
      * Space: O(N)
      */
-    fun lengthOfLISDPN2Solution(nums: IntArray?): Int {
+    fun lengthOfLISDP(nums: IntArray?): Int {
         if (nums == null || nums.isEmpty()) return 0
         val dp = IntArray(nums.size) { 1 }
         dp[0] = 1
+        var result = 1
         for (j in 1 until nums.size) {
             for (i in 0 until j) {
                 if (nums[i] < nums[j]) {
                     // Most important step
-                    dp[j] = max(dp[j], dp[i]) + 1
+                    dp[j] = max(dp[j], dp[i] + 1)
+                    result = max(dp[j], result)
                 }
             }
         }
-        return dp.maxOf { it }
+        return result
     }
 
     /**

@@ -24,6 +24,7 @@ class FindTheCelebrity {
      *
      * Part 2:
      * This is still not enough as we still need to find if candidates all n - 1 members know celebCandidate,
+     * and the fact that one of the celeb candidate i might know one of the i - 1 candidate. In part 1 we only look forward.
      * We use isCelebrity() for that
      *
      * Time: O(N) + O(N)

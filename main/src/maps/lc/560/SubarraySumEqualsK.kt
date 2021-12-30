@@ -25,18 +25,20 @@ class SubarraySumEqualsK {
     }
 
     /**
+     * sum[i, j] represents running sum of elements between index i & j (inclusive)
      * Algo: If we are looking for sum[i, j] such that it equals to k then we can create the following formula
      * sum[0, i - 1] + sum[i, j] = sum[0, j], where j > 1
      * By keeping a running sum what we have in fact is sum[0, j], using this we can say
      * sum[0, j] - k = sum[0, i - 1], this is true if sum[i, j] == k
      * So during our computation we check this assumption, we assume we have sum[i, j] == k and we verify
-     * it by looking for sum[0, i - 1], if we find it we add it to the result. There could be multiple times that
+     * it by looking for sum[0, i - 1], if we find it we add its count it to the result. There could be multiple times that
      * we have seen sum[0, i - 1], all the "array values" starting from index i to j(current) will sum up to k.
      * We use a map to store these oldSum keys and its count.
      *
      * If you have an array of running sum, distance between any two indices is the sum of elements between them
-     * eg. arr [5, 10, -5] will have sum arr [5, 15, 10], distance between index 0 and 2 is 10 - 5 = 5, which means
-     * this is the same as sum of array values arr[1] + arr[2] = 10 + (-5) = 5
+     * eg. arr [5, 10, -5] will have sum arr [5, 15, 10], to compute subarray sum of [1, 2] using running sum
+     * we could say sum[1, 2] = sum[0, 2] - sum[0, 0], ie. 10 - 5 = 5 (and if we do that looking at the array elements
+     * we can see it is correct because 10 + (-5) = 5.
      *
      * At every iteration, we subtract k from running sum and check if we had encountered map[sum - k] in the past,
      * if yes then all the array values between (not including) starting from index i - 1 will sum up to k
@@ -59,20 +61,23 @@ class SubarraySumEqualsK {
      * Second occurence of 14 at index 5: Sum of values between (5, 6] = 7 = 7
      * This is the reason why we add value of key 14 which is 2 to our result.
      *
-     * https://www.youtube.com/watch?v=bqN9yB0vF08
+     * https://www.youtube.com/watch?v=HbbYPQc-Oo4 is even better
+     *
+     * Time: O(N)
+     * Space: O(N)
      */
     fun subarraySum(nums: IntArray, k: Int): Int {
-        var count = 0
-        val map = mutableMapOf<Int, Int>() // preSum -> count
-
-        // map[0] = 1 Required if skipping line 70
+        if(nums.isEmpty()) return 0
+        val map = HashMap<Int, Int>() // sum - k -> count
         var sum = 0
+        var count = 0
+        map[0] = 1 // Important, we have 0 occurrences of 1
+
         for(num in nums) {
             sum += num
-            if (sum - k == 0) count++ // you can also skip this step by simply initializing the map with 0:1 pair
-            // By looking for key [sum - k], we are checking if we ever encountered sum[0, i - 1]
-            // in the past, if yes add the number of its occurrences to the result
-            count += map.getOrDefault(sum - k, 0)
+            if (map.contains(sum - k)) {
+                count += map[sum - k]!!
+            }
             map[sum] = map.getOrDefault(sum, 0) + 1
         }
         return count

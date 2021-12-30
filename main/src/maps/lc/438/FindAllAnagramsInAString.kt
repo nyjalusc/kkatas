@@ -2,6 +2,10 @@ package maps.lc.`438`
 
 class FindAllAnagramsInAString {
     /**
+     * Bruteforce: Generate all anagrams of string p -> N! (N factorial) and check occurrences of all the strings in given
+     * string s.
+     *
+     * Check my impl below
      * Sliding Window + map
      * Template for such problems
      * https://leetcode.com/problems/find-all-anagrams-in-a-string/discuss/92007/Sliding-Window-algorithm-template-to-solve-all-the-Leetcode-substring-search-problem.
@@ -16,7 +20,6 @@ class FindAllAnagramsInAString {
         // Populate map with substring char -> count
         val map = mutableMapOf<Char, Int>()
 
-        map.values.all { it == 0 }
         p.forEach{
             map[it] = map.getOrDefault(it, 0) + 1
         }
@@ -62,9 +65,52 @@ class FindAllAnagramsInAString {
         }
         return result
     }
+
+    fun findAnagramsMyImpl(s: String, p: String): List<Int> {
+        val result = mutableListOf<Int>()
+        val map = mutableMapOf<Char, Int>()
+
+        // Populate map with substring char -> count
+        p.forEach {
+            val charCount = map.getOrElse(it) { 0 }
+            map[it] = charCount + 1
+        }
+
+        var j = 0
+        var i = 0
+        val windowSize = p.length
+        while (j < s.length) {
+            // Process and expand window
+            if(map.containsKey(s[j])) {
+                map[s[j]] = map[s[j]]!! - 1
+            }
+            j++ // expand the window
+
+            // If we hit windowsize check if we have a result
+            if (j - i == windowSize) {
+                // If all values in the map are 0 then we have a result at i
+                if (map.values.all { it == 0 }) {
+                    result.add(i)
+                }
+
+                // Slide the window but before that adjust the map by incrementing the count for s[i]
+                if(map.containsKey(s[i])) {
+                    map[s[i]] = map[s[i]]!! + 1
+                }
+                i++ // slide the window
+            }
+        }
+
+        return result
+    }
 }
 
 fun main() {
     val solution = FindAllAnagramsInAString()
-    println(solution.findAnagrams("abcabc", "abc"))
+//    println(solution.findAnagrams("abcabc", "abc"))
+    println(solution.findAnagrams("cbaebabacd", "abc"))
+    println(solution.findAnagramsMyImpl("cbaebabacd", "abc"))
+
+
+
 }

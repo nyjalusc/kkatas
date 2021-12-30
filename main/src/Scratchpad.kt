@@ -25,21 +25,20 @@ fun main() {
 //    pq.addAll(pqSample)
 //    while (pq.isNotEmpty()) println("\nPQ: ${pq.poll().contentToString()}")
 
-    val dictionary = setOf("Kotlin", "File", "Fun")
-    val prefixes = dictionary.map { word ->
-        List(word.length + 1) { word.take(it) }
-    }
-    println(prefixes)
+    val w = arrayOf(1, 2, 3)
+    val wSums = w.runningReduce { acc, i -> acc + i}
+    println(wSums)
 
     val word = "Wow"
     val out = List(word.length + 1) { word.take(it) }
     println(out)
 
+    val pq = PriorityQueue<Int>()
+
 
     val list = mutableListOf<Pair<Int, Int>>()
     val key = 1
     val found = list.find { it.first == key }
-
 
 
 }

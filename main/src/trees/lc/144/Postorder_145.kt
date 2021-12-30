@@ -21,8 +21,8 @@ class Postorder_145 {
                     // we hit a node whose right child is not visited.
                     var node = current
                     while(!stack.isEmpty() && node == stack.first()?.right) { // Most important
-                        node = stack.removeFirst()
-                        result.add(node.`val`)
+//                        node = stack.()
+//                        result.add(node.`val`)
                     }
                 }
             }

@@ -13,9 +13,7 @@ class ValidParentheses {
         s.forEach { c ->
             try {
                 when (c) {
-                    '{' -> stack.addFirst(c)
-                    '[' -> stack.addFirst(c)
-                    '(' -> stack.addFirst(c)
+                    '{', '[', '(' -> stack.addFirst(c)
                     '}' -> {
                         val top = stack.removeFirst()
                         if(top != '{') return false

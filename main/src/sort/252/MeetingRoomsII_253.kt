@@ -19,7 +19,6 @@ class MeetingRoomsII_253 {
 
         // Create a PQ with a comaparator that sorts arrays by the last value
         val pq = PriorityQueue<IntArray>(compareBy{ it.last() }) //<-- Min heap, returns first completed interval
-
         intervals.forEach { interval ->
             if(pq.isEmpty()) {
                 pq.add(interval)

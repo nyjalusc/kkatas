@@ -3,9 +3,6 @@ package strings.lc.`273`
 class IntegerToEnglishWords {
     // We read 3 digits from the back, process it and adjust it cleverly in the StringBuilder.
     // https://leetcode.com/problems/integer-to-english-words/discuss/70625/My-clean-Java-solution-very-easy-to-understand
-
-    // We read 3 digits from the back, process it and adjust it cleverly in the StringBuilder.
-    // https://leetcode.com/problems/integer-to-english-words/discuss/70625/My-clean-Java-solution-very-easy-to-understand
     private val LESS_THAN_20 = arrayOf(
         "",
         "One",
