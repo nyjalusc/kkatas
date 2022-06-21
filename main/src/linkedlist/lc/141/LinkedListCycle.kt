@@ -7,20 +7,27 @@ import linkedlist.lc.ListNode
  */
 
 class LinkedListCycle {
-    // Two pointer approach
+    /**
+     * Two pointer approach
+     * Time: O(N), Space: O(1)
+     */
     fun hasCycle(head: ListNode?): Boolean {
+        if(head == null) return false
         var fast = head
         var slow = head
 
-        while (fast?.next != null) {
-            slow = slow?.next
+        while(fast != null && fast.next != null) {
             fast = fast.next?.next
-            if (fast == slow && fast != null && slow != null) return true
+            slow = slow!!.next
+            if(fast == slow) return true
         }
         return false
     }
 
-    // More efficient solution than two pointer
+    /**
+     * If you want to avoid repetition of node processing you can use memory in the form of a set
+     * Check if the current node is in a set of visited nodes, if not add the current node and move to next
+     */
     fun hasCycle2(head: ListNode?): Boolean {
         val set = HashSet<ListNode>()
         var curr = head

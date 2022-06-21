@@ -34,4 +34,22 @@ class LongestSubstringWithoutRepeatingChars_3 {
 
         return result
     }
+
+    fun lengthOfLongestSubstringMyImpl(s: String): Int {
+        val set = HashSet<Char>()
+        var result = 0
+        var i = 0
+        for (j in s.indices) {
+            if(!set.contains(s[j])) {
+                set.add(s[j])
+                result = result.coerceAtLeast(j - i + 1)
+            } else {
+                while (s[i] != s[j]) {
+                    set.remove(s[i++])
+                }
+                i++
+            }
+        }
+        return result
+    }
 }

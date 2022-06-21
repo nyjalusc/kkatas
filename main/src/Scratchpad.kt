@@ -1,6 +1,13 @@
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * [1,2,2,3,null,null,3,4,null,null,4]
+           1
+       2       2
+    3    x    x  3
+  4  x          x  4
+ */
 
 fun main() {
 //    var arr = arrayOf(2, 4, 6, 7, 8)
@@ -25,21 +32,23 @@ fun main() {
 //    pq.addAll(pqSample)
 //    while (pq.isNotEmpty()) println("\nPQ: ${pq.poll().contentToString()}")
 
-    val w = arrayOf(1, 2, 3)
-    val wSums = w.runningReduce { acc, i -> acc + i}
-    println(wSums)
+//    val w = arrayOf(1, 2, 3)
+//    val wSums = w.runningReduce { acc, i -> acc + i}
+//    println(wSums)
+//
+//    val word = "Wow"
+//    val out = List(word.length + 1) { word.take(it) }
+//    println(out)
+//
+//    val pq = PriorityQueue<Int>()
+//
+//
+//    val list = mutableListOf<Pair<Int, Int>>()
+//    val key = 1
+//    val found = list.find { it.first == key }
 
-    val word = "Wow"
-    val out = List(word.length + 1) { word.take(it) }
-    println(out)
-
-    val pq = PriorityQueue<Int>()
-
-
-    val list = mutableListOf<Pair<Int, Int>>()
-    val key = 1
-    val found = list.find { it.first == key }
-
+    val s = "Hello, this; has spaces"
+    s.map { if(Character.isLetterOrDigit(it)) it else "" }.joinToString("").also { println(it) }
 
 }
 
