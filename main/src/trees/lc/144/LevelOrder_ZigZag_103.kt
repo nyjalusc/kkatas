@@ -1,6 +1,8 @@
 package trees.lc.`144`
 
 import trees.lc.TreeNode
+import java.util.*
+import kotlin.collections.ArrayDeque
 
 class LevelOrder_ZigZag_103 {
     fun zigzagLevelOrder(root: TreeNode?): List<List<Int>> {
@@ -34,6 +36,29 @@ class LevelOrder_ZigZag_103 {
             }
 
             leftToRightOrder = !leftToRightOrder
+        }
+        return result
+    }
+
+
+    fun zigzagLevelOrderPrac(root: TreeNode?): List<List<Int>> {
+        if (root == null) return emptyList()
+
+        val queue = LinkedList<TreeNode>()
+        val result = mutableListOf<List<Int>>()
+        queue.add(root)
+        var isReversedFlag = false
+
+        while (queue.isNotEmpty()) {
+            val nodesCurrentLevel = queue.toList().map{ it.`val`}
+            if (isReversedFlag) result.add(nodesCurrentLevel.reversed()) else result.add(nodesCurrentLevel)
+            val numNodesCurrentLevel = queue.size
+            repeat (numNodesCurrentLevel) {
+                val node = queue.poll()
+                node.left?.let { queue.add(it) }
+                node.right?.let { queue.add(it) }
+            }
+            isReversedFlag = !isReversedFlag
         }
         return result
     }

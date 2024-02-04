@@ -33,52 +33,59 @@ class KClosestPointsToOrigin {
     }
 
     /**
-     * Solution 3: Quick Select (Buggy)
-     * Checkout Problem 215 to learn about Quick select algorithm
+     * Solution 3: Quick Select
      * Time: O(N) in average, O(N^2) if you have to run the partition algo for all elements
      * https://leetcode.com/problems/k-closest-points-to-origin/discuss/220235/Java-Three-solutions-to-this-classical-K-th-problem.
      */
     fun kClosest(points: Array<IntArray>, k: Int): Array<IntArray> {
         var left = 0
         var right = points.lastIndex
-        val random = Random(0) // instead of random, you can always select the last element
         while (left <= right) {
-            val randPivotIndex = random.nextInt(right - left + 1) + left
-            val partitionIndex = partition(points, left, right, randPivotIndex)
-            if(partitionIndex == k - 1) return points.copyOfRange(0, k)
-
-            if(partitionIndex < k - 1) left = partitionIndex + 1
+            val partitionIndex = partition(points, left, right)
+            if (partitionIndex == k) break
+            if (partitionIndex < k) left = partitionIndex + 1
             else right = partitionIndex - 1
         }
-        return emptyArray()
+
+        return points.copyOfRange(0, k)
     }
 
-    private fun partition(points: Array<IntArray>, left: Int, right: Int, pivotIndex: Int): Int {
-        val pivotValue = points[pivotIndex]
-        swap(points, pivotIndex, right)
+    private fun partition(points: Array<IntArray>, left: Int, right: Int): Int {
+        val pivot = points[right]
+        var start = left
+        var end = right - 1
 
-        var i = left
-        for (j in left until right) {
-            if (compare(points[j], points[right]) > 0) {
-                swap(points, i++, j)
+        while (start <= end) {
+            // Move start forward until a greater element is found
+            while (start <= end && compare(points[start], pivot) <= 0) {
+                start++
+            }
+
+            // Move end backward until a lesser element is found
+            while (start <= end && compare(points[end], pivot) > 0) {
+                end--
+            }
+
+            // Swap elements at start and end if needed
+            if (start < end) {
+                swap(points, start, end)
             }
         }
-        swap(points, i, right)
-        return i
+
+        // Finally, swap the pivot with the element at start
+        swap(points, start, right)
+        return start
     }
 
-    /**
-     * If point1 and point2 are the same then 0 otherwise
-     * < 0 if point1 is closer to the origin, else > 0
-     */
     private fun compare(point1: IntArray, point2: IntArray) =
-        (point1.first() * point1.first() + point1.last() + point1.last()) -
-                (point2.first() * point2.first() + point2.last() + point2.last())
+        (point1.first() * point1.first() + point1.last() * point1.last()) -
+                (point2.first() * point2.first() + point2.last() * point2.last())
 
-    private fun swap(points: Array<IntArray>, index1: Int, index2: Int) {
-        val temp = points[index1]
-        points[index2] = points[index1]
-        points[index1] = temp
+
+    private fun swap(points: Array<IntArray>, idx1: Int, idx2: Int): Unit {
+        val temp = points[idx1]
+        points[idx1] = points[idx2]
+        points[idx2] = temp
     }
 
 }

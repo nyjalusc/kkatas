@@ -35,4 +35,21 @@ class LevelOrder_102 {
             }
             return result
         }
+
+    fun levelOrderOptimized(root: TreeNode?): List<List<Int>> {
+        if (root == null) return emptyList()
+
+        val queue = ArrayDeque<TreeNode>()
+        val result = mutableListOf<List<Int>>()
+        queue.addLast(root)
+        while(queue.isNotEmpty()) {
+            result.add(queue.toList().map{ it.`val`})
+            for (i in queue.indices) {
+                val node = queue.removeFirst()
+                node.left?.let { queue.add(it) }
+                node.right?.let { queue.add(it) }
+            }
+        }
+        return result
+    }
 }

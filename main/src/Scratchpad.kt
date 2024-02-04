@@ -1,5 +1,7 @@
+import trees.lc.TreeNode
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayDeque
 
 /**
  * [1,2,2,3,null,null,3,4,null,null,4]
@@ -50,6 +52,45 @@ fun main() {
     val s = "Hello, this; has spaces"
     s.map { if(Character.isLetterOrDigit(it)) it else "" }.joinToString("").also { println(it) }
 
+    val input = arrayOf(intArrayOf(2, 5), intArrayOf(5, 7))
+    val find = intArrayOf(1, 2)
+    input.sortBy { it.first() }
+    print(input)
+    val index = input.binarySearch(find, compareBy { it.first().compareTo(find[0]) })
+    println(index)
+
+
+}
+
+fun levelOrder(root: TreeNode?): List<List<Int>> {
+    if (root == null) return emptyList()
+
+    val queue = ArrayDeque<TreeNode>()
+    val result = mutableListOf<List<Int>>()
+    queue.addLast(root)
+    var nodesAtLevel = 1
+    while(queue.isNotEmpty()) {
+        val currentLevelNodes = mutableListOf<Int>()
+        var childrensCount = 0
+
+        repeat(nodesAtLevel) {
+            val node = queue.removeFirst()
+            currentLevelNodes.add(node.`val`)
+
+            node.left?.also {
+                queue.addLast(it)
+                childrensCount++
+            }
+
+            node.right?.also {
+                queue.addLast(it)
+                childrensCount++
+            }
+        }
+        nodesAtLevel = childrensCount
+        result.add(currentLevelNodes)
+    }
+    return result
 }
 
 fun createZipArchiveFileName(): String {

@@ -3,6 +3,11 @@ package backtracking.`39`
 
 class Permutations_46 {
 
+    /**
+     * Time Complexity: O(N * N!): To generate you need N! operations, first element has (n - 1) choices, then (n - 2)...1 = N!
+     * Total number of possible solutions are N, where N is the number of given elements
+     * Space Complexity: O(N): Max depth of call stack possible is N = number of given elements
+     */
     fun permute(nums: IntArray?): List<List<Int>> {
         val result: MutableList<List<Int>> = ArrayList()
         if (nums == null || nums.isEmpty()) return result
