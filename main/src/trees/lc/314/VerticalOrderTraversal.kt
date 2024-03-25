@@ -103,6 +103,47 @@ class VerticalOrderTraversal {
         return result
     }
 
+
+
+    /**
+     * Time Complexity: O(N log N) where Ns the number of nodes in the tree.
+     * In the first part of the algorithm, we do the BFS traversal, whose time complexity is O(N) since we traversed each
+     * node once and only once. In the second part, in order to return the ordered results, we then sort the obtained
+     * hash table by its keys, which could result in the O(N log N) time complexity in the worst case scenario where the
+     * binary tree is extremely imbalanced (for instance, each node has only left child node.)
+     *
+     * Space: O(N), where N is the number of nodes
+     */
+    fun verticalOrderPrac(root: TreeNode?): List<List<Int>> {
+        val result = mutableListOf<List<Int>>()
+        val map = mutableMapOf<Int, MutableList<Int>>()
+
+        val deque = ArrayDeque<NodeIndexedPrac>()
+        deque.add(NodeIndexedPrac(0, root!!))
+
+        while (deque.isNotEmpty()) {
+            val node = deque.removeFirst()
+            map.getOrPut(node.index) { mutableListOf() }.add(node.treeNode.`val`)
+
+            node.treeNode.left?.let {
+                deque.addLast(NodeIndexedPrac(node.index - 1, it))
+            }
+
+            node.treeNode.right?.let {
+                deque.addLast(NodeIndexedPrac(node.index + 1, it))
+            }
+        }
+
+        // Process map
+        map.keys.sorted().forEach {
+            result.add(map[it]!!)
+        }
+
+        return result
+    }
+    private data class NodeIndexedPrac(val index: Int, val treeNode: TreeNode)
+
+
     // Working solution, failing in LC due to kotlin version issues
     /**
     fun verticalOrder2(root: TreeNode?): List<List<Int>> {

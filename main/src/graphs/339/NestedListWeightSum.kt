@@ -15,7 +15,7 @@ class NestedListWeightSum {
         var sum = 0
         nestedList.forEach {
             if(it.isInteger()) sum += it.getInteger()!! * depth
-            else helper(it.getList()!!, depth + 1)
+            else sum += helper(it.getList()!!, depth + 1)
         }
         return sum
     }

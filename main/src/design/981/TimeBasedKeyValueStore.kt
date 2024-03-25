@@ -28,6 +28,53 @@ class TimeBasedKeyValueStore() {
     }
 }
 
+class TimeMapWithTreeMap() {
+    /**
+     * In-memory key-value store with timestamped entries.
+     *
+     * This data structure maintains a mapping of keys to sorted timestamp-value pairs,
+     * allowing efficient retrieval of the latest value associated with a key at a specific
+     * timestamp or earlier.
+     *
+     * Time Complexity:
+     *   - set: O(log n), where n is the number of timestamps for the given key.
+     *   - get: O(log n), where n is the number of timestamps for the given key.
+     *
+     * Space Complexity: O(n * m), where n is the number of keys and m is the average
+     * number of timestamps per key.
+     */
+    private val dataStore = mutableMapOf<String, TreeMap<Int, String>>()
+
+    /**
+     * Stores a new value for a key at a specific timestamp.
+     *
+     * This function uses an atomic get-or-put approach to retrieve the existing
+     * TreeMap for the given key, or create a new one if it doesn't exist. Then, it
+     * inserts the new value under the provided timestamp while maintaining the sorted
+     * order of timestamps within the TreeMap.
+     *
+     * Time Complexity: O(log n), where n is the number of timestamps for the given key.
+     */
+    fun set(key: String, value: String, timestamp: Int) {
+        val timeStore = dataStore.getOrPut(key) { TreeMap<Int, String>() }
+        timeStore[timestamp] = value
+    }
+
+    /**
+     * Retrieves the latest value associated with a key at a specific timestamp or earlier.
+     *
+     * This function leverages the floorEntry method of the TreeMap to efficiently find
+     * the entry with the largest timestamp less than or equal to the provided timestamp.
+     * If found, it returns the associated value. Otherwise, it returns an empty string.
+     *
+     * Time Complexity: O(log n), where n is the number of timestamps for the given key.
+     */
+    fun get(key: String, timestamp: Int): String {
+        return dataStore.get(key)?.floorEntry(timestamp)?.value ?: ""
+    }
+
+}
+
 /**
  * Using custom binary search implementation. The input time is always sorted
  * so the resulting list stored is also by default sorted. Hence it is easy to apply binary search over the list
@@ -61,3 +108,4 @@ class TimeMap {
         return if (list[low].time <= time) list[low].value else ""
     }
 }
+
